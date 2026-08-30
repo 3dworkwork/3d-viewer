@@ -12,8 +12,8 @@
   <style>
     body {
       margin: 0;
-      /* ↓ ここで背景色を変更できます */
-      background: #f5f5f0; /* ダークグレー（モデルが引き立つおすすめ色） */
+      /* 背景はモデルが映えるダークグレー */
+      background: #1e1e24;
     }
 
     model-viewer {
@@ -24,7 +24,9 @@
 </head>
 <body>
 
+  <!-- id="viewer" を追加しました -->
   <model-viewer
+    id="viewer"
     src="model.glb"
     camera-controls
     auto-rotate
@@ -32,6 +34,28 @@
     shadow-softness="0.8"
     exposure="1.2">
   </model-viewer>
+
+  <script>
+    const modelViewer = document.querySelector("#viewer");
+
+    // モデルの読み込みが完了したら色を変更する
+    modelViewer.addEventListener("load", () => {
+      const [material] = modelViewer.model.materials;
+      
+      // ↓ ここでモデルの色を指定します [赤, 緑, 青, 不透明度]
+      // 各数字は 0.0（0%）〜 1.0（100%）で指定します。
+
+      // 例：鮮やかな赤色にする
+      material.pbrMetallicRoughness.setBaseColorFactor([1.0, 0.0, 0.0, 1.0]);
+
+      // --- 他の色にしたい場合の例（コメントを外して使ってください） ---
+      // 例：青色
+      // material.pbrMetallicRoughness.setBaseColorFactor([0.0, 0.5, 1.0, 1.0]);
+      
+      // 例：緑色
+      // material.pbrMetallicRoughness.setBaseColorFactor([0.1, 0.8, 0.1, 1.0]);
+    });
+  </script>
 
 </body>
 </html>
